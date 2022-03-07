@@ -31,37 +31,68 @@ const teamMembers = [
 	},
 ];
 
-console.log(teamMembers);
+//console.log(teamMembers);
 
 const teamContainer = document.querySelector(".team-container");
-const teamCard = document.createElement("div");
-const cardImage = document.createElement("div");
-const image = document.createElement("img");
-const cardText = document.createElement("div");
-const memberName = document.createElement("h3");
-const memberRole = document.createElement("p");
 
-teamCard.classList.add("team-card");
-image.src = "img/wayne-barnett-founder-ceo.jpg"; //Variabile da inserire
-image.alt = "Wayne Barnett"; //Variabile da inserire
-cardImage.classList.add("card-image");
-cardImage.append(image);
-teamCard.append(cardImage);
-cardText.classList.add("card-text");
-memberName.innerText = "Wayne Barnett"; //Variabile da inserire
-memberRole.innerText = "Founder & CEO"; //Variabile da inserire
-cardText.append(memberName);
-cardText.append(memberRole);
-teamCard.append(cardText);
-teamContainer.append(teamCard);
+for (let index = 0; index < teamMembers.length; index++) {
+	const teamCard = document.createElement("div");
+	teamCard.classList.add("team-card");
+	const cardImage = document.createElement("div");
+	cardImage.classList.add("card-image");
+	const image = document.createElement("img");
+	const cardText = document.createElement("div");
+	cardText.classList.add("card-text");
+	const memberName = document.createElement("h3");
+	const memberRole = document.createElement("p");
+	const member = teamMembers[index];
+	//console.log(member);
+	//console.log(member["Name"]);
+	//console.log(member["Role"]);
+	//console.log(member["Image"]);
+	image.src = `img/${member["Image"]}`;
+	image.alt = member["Name"];
+	cardImage.append(image);
+	teamCard.append(cardImage);
+	memberName.innerText = member["Name"];
+	memberRole.innerText = member["Role"];
+	cardText.append(memberName);
+	cardText.append(memberRole);
+	teamCard.append(cardText);
+	teamContainer.append(teamCard);
+}
 
-// for (let i = 0; i < teamMembers.length; i++) {
-// 	let member = teamMembers[i];
-// 	for (let key in teamMembers) {
-// 		console.log(member[key]);
-// 	}
-// }
+const nameField = document.getElementById("name").value;
+console.log(nameField);
+const roleField = document.getElementById("role").value;
+console.log(roleField);
+const imageField = document.getElementById("image").value;
+console.log(imageField);
+const sendBtn = document.getElementById("addMemberButton");
+console.log(sendBtn);
 
-let member = teamMembers[1];
-console.log(member);
-console.log(member['Name'])
+sendBtn.addEventListener("click", function () {
+	teamMembers.push({ Name: nameField, Role: roleField, Image: imageField });
+	console.log(teamMembers[teamMembers.length - 1]);
+	const newCard = document.createElement("div");
+	newCard.classList.add("team-card");
+	const newCardImage = document.createElement("div");
+	newCardImage.classList.add("card-image");
+	const newImage = document.createElement("img");
+	const cardText = document.createElement("div");
+	cardText.classList.add("card-text");
+	const memberName = document.createElement("h3");
+	const memberRole = document.createElement("p");
+	const newMember = teamMembers[teamMembers.length - 1];
+	//console.log(newMember);
+	newImage.src = newMember["Image"];
+	newImage.alt = newMember["Name"];
+	newCardImage.append(newImage);
+	newCard.append(newCardImage);
+	memberName.innerText = newMember["Name"];
+	memberRole.innerText = newMember["Role"];
+	cardText.append(memberName);
+	cardText.append(memberRole);
+	newCard.append(cardText);
+	teamContainer.append(newCard);
+});
